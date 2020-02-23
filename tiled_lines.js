@@ -5,19 +5,33 @@ var size = window.innerWidth;
 var dpr = window.devicePixelRatio;
 canvas.width = size * dpr;
 canvas.height = size * dpr;
-context.scale(dpr , dpr);
+context.scale(dpr, dpr);
+
 
 context.lineCap = 'square';
 context.lineWidth = 8;
 
 function draw(x, y, width, height) {
-    context.moveTo(x, y);
-    context.lineTo(x + width, y + height);
-    context.stroke()
+    var leftToRight = Math.random() >= 0.5;
+    if (leftToRight) {
+        context.moveTo(x, y);
+        context.lineTo(x + width, y + height);
+    } else {
+        context.moveTo(x + width, y);
+        context.lineTo(x, y + height);
+
+    }
+    context.stroke();
 }
 
-draw(0, 0, size, size)
-draw(5, 5, size, size)
+
+var step = size / 3;
+
+for (var x = 0; x < size; x += step) {
+    for (var y = 0; y < size; y += step) {
+        draw(x, y, step, step)
+    }
+}
 
 
 
